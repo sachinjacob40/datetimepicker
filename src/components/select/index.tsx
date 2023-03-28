@@ -112,6 +112,9 @@ function CustomSelect<T>({
       <p
         className={`sassy--select ${disabled ? "sassy--select__disabled" : ""}`}
         tabIndex={disabled ? -1 : 0}
+        style={{
+          cursor: "pointer !important"
+        }}
         onClick={openOptionsDropdown}
         //onFocus={openOptionsDropdown}
       >
