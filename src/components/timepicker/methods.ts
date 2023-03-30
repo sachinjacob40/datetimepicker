@@ -58,19 +58,29 @@ export const timeToTimeDisplay = (selectedTime: Time): TimeDisplay => {
 };
 
 export const generateHourOptions = (
-  timeFormat: DisplayFormat
+  timeFormat: DisplayFormat,
+  minHour?: number,
+  maxHour?: number
 ): OptionType<number>[] => {
+  let startHour = 0;
+  let endHour = 23;
+
   if (timeFormat === "12hr") {
-    const listOfOptions: OptionType<number>[] = new Array(12);
-    listOfOptions[0] = option(12);
-    for (let i = 1; i <= 11; i += 1) {
-      listOfOptions[i] = option(i);
-    }
-    return listOfOptions;
+    startHour = 1;
+    endHour = 12;
   }
-  const listOfOptions: OptionType<number>[] = new Array(24);
-  for (let i = 0; i <= 23; i += 1) {
-    listOfOptions[i] = option(i);
+
+  if (minHour !== undefined && minHour >= startHour && minHour <= endHour) {
+    startHour = minHour;
+  }
+
+  if (maxHour !== undefined && maxHour >= startHour && maxHour <= endHour) {
+    endHour = maxHour;
+  }
+
+  const listOfOptions: OptionType<number>[] = [];
+  for (let i = startHour; i <= endHour; i += 1) {
+    listOfOptions.push(option(i));
   }
   return listOfOptions;
 };
